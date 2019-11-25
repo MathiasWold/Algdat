@@ -52,7 +52,8 @@ LCS(x, y)
 
 
 def rod_cut(prices, length):
-    """ Finds the optimal way to cut a rod of length n into smaller pieces such that
+    """ 
+        Finds the optimal way to cut a rod of length n into smaller pieces such that
         total sell value for all the pieces are maximal
     """
 

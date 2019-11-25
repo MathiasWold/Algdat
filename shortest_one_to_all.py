@@ -24,7 +24,7 @@ def relax(v1, v2):
 
 def bellman_ford(G, s):
     """
-        Find shortest paths from s to all other vertices, works with negative edges.
+        Find shortest paths from s to all other vertices, works with negative edges.\n
         Returns True if there are no negative cycles, otherwise return False
      """
     initialize_single_source(G, s)
@@ -143,4 +143,4 @@ def test3():
         if v != s:
             print(f"{v}: {v.d}")
 
-test3()
+#test3()

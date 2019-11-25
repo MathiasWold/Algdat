@@ -16,12 +16,11 @@ class Vertex:
         self.name = name
         self.rank = rank
         self.comparator = comparator
-        
     
     def add_edge(self, vertex, weight=0):
-        """ Add a directed edge from self to vertex and saves it in self.adj, tupled with weight """
+        """ Add a directed edge from self to vertex and saves it in self.adj, listed with weight """
         if not vertex in self.adj:
-            self.adj.append((vertex, weight))
+            self.adj.append([vertex, weight])
 
     def __lt__(self, other):
         """ Makes it possible to compare vertices by their ranks/value or d """
@@ -31,12 +30,11 @@ class Vertex:
             return self.rank < other.rank
 
     def __repr__(self):
-        """ Makes debugging easier :) """
+        """ Makes debugging easier """
         if self.name:
             return str(self.name)
-            #return str(self.rank)
         else:
-            return "Vertex"
+            return "Untitled Vertex"
     
 class Graph:
     """ Class for graphs used in graph algorithms """
@@ -50,8 +48,8 @@ class Graph:
         self.E = []
         for u in self.V:
             for v in u.adj:
-                if type(v) == tuple:
-                    # tuple ==> edge is weighted
+                if len(v) == 2:
+                    # len == 2 --> edge is weighted
                     # edge format: (u, v, weight)
                     self.E.append((u, v[0], v[1]))
                 else:
