@@ -27,10 +27,12 @@ def BFS(G, s):
                 print(f"found {v}, distance from {s} is {v.d}")
         print(f"finished {u}")
 
+
 global time
 
-def DFS(G, debug = True):
-    """ Implements Depth First Search """ 
+
+def DFS(G, debug=True):
+    """ Implements Depth First Search """
     global time
     for u in G.V:
         u.color = "white"
@@ -38,25 +40,31 @@ def DFS(G, debug = True):
     time = 0
     for u in G.V:
         if u.color == "white":
-            if debug: print(f"found {u} at time {time}")
-            DFS_vist(G, u, debug = debug)
+            if debug:
+                print(f"found {u} at time {time}")
+            DFS_vist(G, u, debug=debug)
 
-def DFS_vist(G, u, debug = True):
+
+def DFS_vist(G, u, debug=True):
     """ Sub-routine in DFS """
-    if debug: print(f"searching {u}")
+    if debug:
+        print(f"searching {u}")
     global time
     time += 1
     u.d = time
     u.color = "grey"
     for v, weigth in G.adj(u):
         if v.color == "white":
-            if debug: print(f"found {v} at time {time}")
+            if debug:
+                print(f"found {v} at time {time}")
             v.p = u
-            DFS_vist(G, v, debug = debug)
+            DFS_vist(G, v, debug=debug)
     u.color = "black"
     time += 1
     u.f = time
-    if debug: print(f"finished {u} at time {time}")
+    if debug:
+        print(f"finished {u} at time {time}")
+
 
 def topological_sort(G):
     """ Implementation of Toplogical Sort using DFS """
@@ -64,8 +72,9 @@ def topological_sort(G):
     result = []
     for u in G.V:
         result.append(u)
-    result.sort(key=lambda x:x.f, reverse = True)
+    result.sort(key=lambda x: x.f, reverse=True)
     return result
+
 
 def test():
     v1 = Vertex(1)
@@ -93,4 +102,4 @@ def test():
     print("\nTopological sort:")
     topological_sort(g)
 
-#test()
+# test()

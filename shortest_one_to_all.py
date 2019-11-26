@@ -5,12 +5,14 @@ from graph_structs import Graph, Vertex
 from graph_traversal import topological_sort
 from heaps import MinHeap
 
+
 def initialize_single_source(G, s):
     """ Initalization for single source shortest path algorithms """
     for v in G.V:
         v.d = sys.maxsize
         v.p = None
     s.d = 0
+
 
 def relax(v1, v2):
     """ Relax is used to decrease distance estimate v.d for s to v if possible """
@@ -21,6 +23,7 @@ def relax(v1, v2):
                 v2.p = v1
         # else:
         #     raise ValueError("v1 and v2 does not share an edge")
+
 
 def bellman_ford(G, s):
     """
@@ -36,6 +39,7 @@ def bellman_ford(G, s):
             return False
     return True
 
+
 def DAG_shortest_paths(G, s):
     """ Find shortest paths from s to all other vertices on a DAG (directed acyclic graph), works with negative edges """
     G.V = topological_sort(G)
@@ -45,6 +49,7 @@ def DAG_shortest_paths(G, s):
         u = q.pop(0)
         for v, weigth in G.adj(u):
             relax(u, v)
+
 
 def dijkstra(G, s):
     """ Find shortest paths from s to all other vertices, works only with non-negative edges """
@@ -85,7 +90,8 @@ def test1():
         if v != s:
             print(f"{v}: {v.d}")
 
-#test1()
+# test1()
+
 
 def test2():
     """ Testing DAG-shortest-paths """
@@ -107,7 +113,7 @@ def test2():
     x.add_edge(z, 1)
     y.add_edge(z, -2)
 
-    g = Graph(r, s, t, x, y,z)
+    g = Graph(r, s, t, x, y, z)
     g.print()
     DAG_shortest_paths(g, s)
     print(f"DAG Shortest paths from {s} to...")
@@ -115,7 +121,8 @@ def test2():
         if v != s:
             print(f"{v}: {v.d}")
 
-#test2()
+# test2()
+
 
 def test3():
     """ Testing Dijkstra """
@@ -143,4 +150,4 @@ def test3():
         if v != s:
             print(f"{v}: {v.d}")
 
-#test3()
+# test3()

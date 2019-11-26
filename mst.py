@@ -5,14 +5,17 @@ from queue import PriorityQueue
 from graph_structs import Graph, Vertex
 from heaps import MinHeap
 
+
 def make_set(v):
     """ Initializes a set with only one vertex """
     v.p = v
     v.rank = 0
 
+
 def union(v1, v2):
     """ Unites two vertices by linking their roots """
     link(find_set(v1), find_set(v2))
+
 
 def link(v1, v2):
     """ Links two vertices by looking at their ranks """
@@ -23,11 +26,13 @@ def link(v1, v2):
         if v1.rank == v2.rank:
             v2.rank += 1
 
+
 def find_set(v):
     """ Finds the root of the set containing v """
     if v != v.p:
         v.p = find_set(v.p)
     return v.p
+
 
 def kruskal(G):
     """ Implementation of Kruskal to find MST """
@@ -35,7 +40,8 @@ def kruskal(G):
     total_weight = 0
     for u in G.V:
         make_set(u)
-    G.E.sort(key=lambda edge : edge[2])   # sorts the edges by weight in increasing order
+    # sorts the edges by weight in increasing order
+    G.E.sort(key=lambda edge: edge[2])
     for u, v, weight in G.E:
         # edge format: (u, v, weight)
         if find_set(u) != find_set(v):
@@ -43,6 +49,7 @@ def kruskal(G):
             total_weight += weight
             union(u, v)
     print(result, "Minimal weight:", total_weight)
+
 
 def prim(G, s):
     """ Implementation of Prims to find MST """
@@ -62,7 +69,7 @@ def prim(G, s):
                 v.rank = weigth
                 # update heap since ranks have changed
                 Q.build_min_heap()
-    
+
     # find all the edges that spans the tree
     result = []
     total_weight = 0
@@ -71,9 +78,9 @@ def prim(G, s):
             if v.p == u and (u, v, weigth) not in result:
                 result.append((u, v, weigth))
                 total_weight += weigth
-    
+
     print(result, "Minimal weight:", total_weight)
-                
+
 
 v1 = Vertex(1)
 v2 = Vertex(2)

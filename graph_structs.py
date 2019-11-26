@@ -1,8 +1,9 @@
 """ Vertex and Graph """
 
+
 class Vertex:
     """ Class for generic vertex to be used in graph algorithms """
-    
+
     def __init__(self, name=None, rank=None, comparator="rank"):
         """ 
             Name is optional, but is usually a number that represents the vertex.
@@ -16,7 +17,7 @@ class Vertex:
         self.name = name
         self.rank = rank
         self.comparator = comparator
-    
+
     def add_edge(self, vertex, weight=0):
         """ Add a directed edge from self to vertex and saves it in self.adj, listed with weight """
         if not vertex in self.adj:
@@ -35,10 +36,11 @@ class Vertex:
             return str(self.name)
         else:
             return "Untitled Vertex"
-    
+
+
 class Graph:
     """ Class for graphs used in graph algorithms """
-    
+
     def __init__(self, *vertices):
         """
             Initalizes with an optional number of vertices, and adds all vertex-edges as tuples to a list.
@@ -71,7 +73,6 @@ class Graph:
         for v in self.V:
             print(f"{v} -> {v.adj}")
         print()
-
 
 
 v1 = Vertex(1, 9)

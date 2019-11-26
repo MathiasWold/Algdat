@@ -2,6 +2,7 @@
 
 import sys
 
+
 def LCS(x, y):
     """ Finds the longest common subsequence of two input sequences """
 
@@ -38,9 +39,9 @@ def LCS(x, y):
             col -= 1
             lcs += y[col]
         elif result[row][col][1] == "u ":
-            row -=1
+            row -= 1
         else:
-            col -=1
+            col -= 1
     lcs = lcs[::-1]
     print(f"LCS: {lcs}")
     print(f"LCS length: {result[n][m][0]}")

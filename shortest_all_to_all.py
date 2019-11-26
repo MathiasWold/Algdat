@@ -4,9 +4,10 @@ import sys
 from graph_structs import Graph, Vertex
 from shortest_one_to_all import bellman_ford, dijkstra
 
+
 def weight_matrix(G):
     """ Converts and returns G in matrix format, where D[u.rank][v.rank] is equal to weight of edge from u to v """
-    
+
     n = len(G.V)
     D = [[sys.maxsize for i in range(n)] for i in range(n)]
     for i in range(n):
@@ -15,31 +16,33 @@ def weight_matrix(G):
     for u in G.V:
         for v, weight in G.adj(u):
             D[u.rank][v.rank] = weight
-    
+
     return D
+
 
 def predecessor_matrix(G):
     """ Returns the predecessor-matrix for G, where P[u.rank][v.rank] is equal to u for edges u -> v """
 
     n = len(G.V)
     P = [[None for i in range(n)] for i in range(n)]
-    
+
     for u in G.V:
         for v, weight in G.adj(u):
             P[u.rank][v.rank] = u
 
     return P
 
+
 def floyd_warshall(G):
     """ 
     Takes a graph G in matrix-representation as input.\n
     Returns all-pair shortest paths as a matrix D, and the vertex predecessors for the shortest paths as a matrix P 
     """
-    
+
     n = len(G.V)
     D = weight_matrix(G)
     P = predecessor_matrix(G)
-    
+
     # prints inital D and P (when k = 0)
     print("D for k = 0")
     for row in D:
@@ -57,7 +60,7 @@ def floyd_warshall(G):
                 if D[i][j] > D[i][k] + D[k][j]:
                     D[i][j] = D[i][k] + D[k][j]
                     P[i][j] = P[k][j]
-        
+
         # prints D and P for each k
         print(f"D for k = {k + 1}")
         for row in D:
@@ -87,13 +90,13 @@ def johnson(G):
     # run bellman-ford to compute v.d from s for all v in G_s.V
     if not bellman_ford(G_s, s):
         raise ValueError("Input graph contains a negative-weight cycle")
-    
+
     # h is an array satisfying h[v.rank] = v.d, computed from bellman-ford above
     # here v.rank is used as an index
     h = [0 for i in range(len(G_s.V))]
     for v in G_s.V:
-        h[v.rank] = v.d 
-    
+        h[v.rank] = v.d
+
     # make every edge non-negative
     for u in G_s.V:
         for edge in G_s.adj(u):
@@ -110,9 +113,8 @@ def johnson(G):
         for v in G.V:
             # redo the re-weighting, and store the shortest paths in D
             D[u.rank][v.rank] = v.d + h[v.rank] - h[u.rank]
-    
-    return D
 
+    return D
 
 
 def test1():
@@ -137,12 +139,13 @@ def test1():
     g = Graph(v1, v2, v3, v4, v5)
     D, P = floyd_warshall(g)
 
-#test1()
+# test1()
+
 
 def test2():
     """ Test for johnson """
 
-    # comparator = "d" to make dijksta's min-pri-queue work 
+    # comparator = "d" to make dijksta's min-pri-queue work
     # rank = vertex index to be used in johnsons computation of h(v) = v.d
     v1 = Vertex("1", 0, comparator="d")
     v2 = Vertex("2", 1, comparator="d")
@@ -167,12 +170,13 @@ def test2():
     for vertex, row in enumerate(D):
         print(f"Shortest paths from {vertex+1} to all:", row)
 
-#test2()
+# test2()
+
 
 def test3():
     """ Comparing outputs of floyd-warshall and johnson """
 
-    def _init(): 
+    def _init():
         v1 = Vertex("1", 0, comparator="d")
         v2 = Vertex("2", 1, comparator="d")
         v3 = Vertex("3", 2, comparator="d")
@@ -192,7 +196,7 @@ def test3():
         g = Graph(v1, v2, v3, v4, v5)
 
         return g
-    
+
     g = _init()
     d1 = floyd_warshall(g)[0]
     g = _init()
@@ -200,4 +204,4 @@ def test3():
 
     print(d1 == d2)
 
-#test3()
+# test3()

@@ -1,5 +1,6 @@
 """ Heap algorithms for implementing a min-heap and using it as a min-priority queue """
 
+
 class MinHeap:
     """ Class containing methods to be used on a min-heap """
     
@@ -97,4 +98,3 @@ def test():
     heap.print()
 
 # test()
-
