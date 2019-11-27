@@ -80,7 +80,7 @@ def partion(A, start_index, end_index):
     for j in range(start_index, end_index):
         if A[j] <= x:
             # if current index j is less than or equal to pivot, move it to the right partition
-            # and add 1 ti index i (since we got another number less than or equal to x)
+            # and add 1 to index i (since we got another number less than or equal to x)
             i = i + 1
             A[i], A[j] = A[j], A[i]
 

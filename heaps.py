@@ -37,20 +37,20 @@ class MinHeap:
         l_index = self.left(parent_index)
         r_index = self.right(parent_index)
 
-        # if left child exists and left child is larger than parent
+        # if left child exists and left child is smaller than parent
         if l_index < len(self.array) and self.array[l_index] < self.array[parent_index]:
-            largest_index = l_index
+            smallest_index = l_index
         else:
-            largest_index = parent_index
+            smallest_index = parent_index
         
-        # if right child exists and right child is larger than max(parent, left)
-        if r_index < len(self.array) and self.array[r_index] < self.array[largest_index]:
-            largest_index = r_index
+        # if right child exists and right child is smaller than min(parent, left)
+        if r_index < len(self.array) and self.array[r_index] < self.array[smallest_index]:
+            smallest_index = r_index
         
-        # heapify parent and children by swapping places (indexes) if the parent is not largest
-        if largest_index != parent_index:
-            self.array[parent_index], self.array[largest_index] = self.array[largest_index], self.array[parent_index]
-            self.min_heapify(largest_index)
+        # heapify parent and children by swapping places (indexes) if the parent is not smallest
+        if smallest_index != parent_index:
+            self.array[parent_index], self.array[smallest_index] = self.array[smallest_index], self.array[parent_index]
+            self.min_heapify(smallest_index)
 
     def build_min_heap(self):
         """ Builds a min heap from self.array """
@@ -76,7 +76,7 @@ class MinHeap:
         if key > self.array[i]:
             raise ValueError("New key is larger than current key")
         self.array[i] = key
-        while i > 1 and self.array[parent(i)] > self.array[i]:
+        while i > 0 and self.array[parent(i)] > self.array[i]:
             self.array[i], self.array[parent(i)] = self.array[parent(i)], self.array[i]
             i = parent(i)
     

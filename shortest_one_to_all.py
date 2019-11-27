@@ -21,8 +21,6 @@ def relax(v1, v2):
             if v2.d > v1.d + weight:
                 v2.d = v1.d + weight
                 v2.p = v1
-        # else:
-        #     raise ValueError("v1 and v2 does not share an edge")
 
 
 def bellman_ford(G, s):

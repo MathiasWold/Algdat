@@ -100,6 +100,6 @@ def test():
     print("\nDFS:")
     DFS(g)
     print("\nTopological sort:")
-    topological_sort(g)
+    print(topological_sort(g))
 
-# test()
+test()

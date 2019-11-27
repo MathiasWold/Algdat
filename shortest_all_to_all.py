@@ -81,7 +81,7 @@ def johnson(G):
     Returns matrix D with computed shortest paths from u to v in D[u][v]
     """
 
-    # add a new vertex s to a copy of G, called G_s, where these is an edge (s, v, 0) for all v in G.V
+    # add a new vertex s to a copy of G, called G_s, where there is an edge (s, v, 0) for all v in G.V
     s = Vertex("s", -1)
     for v in G.V:
         s.add_edge(v, 0)
