@@ -1,5 +1,6 @@
-""" Sorting and Order Statistics """
+""" Sorting (Divide and Conquer and in linear time) and Order Statistics """
 
+import sys
 import random
 
 
@@ -13,6 +14,59 @@ def insertion_sort(A):
             A[j + 1] = A[j]
             j -= 1
         A[j + 1] = key
+
+
+def merge(A, start_index, split_index, end_index):
+    """ 
+        Merges two subarrays by inserting their elements into the main array by comparing 
+        elements at one index at a time, assuming the subarrays are already sorted 
+    """
+
+    # number of elements in [0 ... split_index] and [split_index + 1 ... end_index]
+    n = split_index - start_index + 1
+    m = end_index - split_index
+
+    # left and right subarrays
+    L = [0] * (n + 1)
+    R = [0] * (m + 1)
+
+    # fills the left subarray [0 ... split_index]
+    for i in range(n):
+        L[i] = A[start_index + i]
+
+    # fills the right subarray [split_index + 1 ... end_index]
+    for i in range(m):
+        R[i] = A[split_index + 1 + i]
+
+    # last element of each subarray = inf to make sure
+    # all elements from both sub-arrays gets inserted into the main array by the comparison below
+    L[n] = R[m] = sys.maxsize
+
+    # indexes for left and right subarray, the indexes represent the next element to extract from subarray
+    # into the main array
+    i = j = 0
+
+    for k in range(start_index, end_index + 1):
+        # If item L[i] in left subarray is less than or equal to element R[j] in right array,
+        # add L[i] to main array, else do the opposite.
+        # Also increase index to the subarray we got the element from, since the element now is
+        # inserted into the main array and we want to look at the next element in the subbaray.
+        if L[i] <= R[j]:
+            A[k] = L[i]
+            i += 1
+        else:
+            A[k] = R[j]
+            j += 1
+
+
+def merge_sort(A, start_index, end_index):
+    """ Sorts A recursively by splitting to subarrays and then merging them """
+
+    if start_index < end_index:
+        split_index = int((start_index + end_index)/2)
+        merge_sort(A, start_index, split_index)
+        merge_sort(A, split_index + 1, end_index)
+        merge(A, start_index, split_index, end_index)
 
 
 def partion(A, start_index, end_index):
@@ -38,7 +92,7 @@ def partion(A, start_index, end_index):
 
 
 def quicksort(A, start_index, end_index):
-    """ Uses partition to sort an array by using divide-and-conquer method """
+    """ Uses partitioning to sort an array recursively """
 
     if start_index < end_index:
         pivot = partion(A, start_index, end_index)
@@ -171,4 +225,14 @@ def test4():
     print(bucket_sort(a))
 
 
-test4()
+# test4()
+
+def test5():
+    """ Test for merge-sort """
+    a = [1, 4, 7, 5, 3, 2, 5, 5, 5, 3, 4, 3, 8,
+         7, 6, 5, 21, 2, 1, 2, 23, 13, 15, 0, 2]
+    merge_sort(a, 0, len(a) - 1)
+    print(a)
+
+
+test5()
