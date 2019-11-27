@@ -189,6 +189,38 @@ def bucket_sort(A):
     return result
 
 
+def bisect(A, start_index, end_index, element):
+    """ Returns the element's index in A, returns None if the element is not in A. Assumes A is sorted. """
+    # also called binary search
+
+    if start_index <= end_index:
+        pivot = int((start_index + end_index)/2)
+        if A[pivot] == element:
+            return pivot
+        elif A[pivot] < element:
+            return bisect(A, pivot + 1, end_index, element)
+        else:  # A[pivot] > element:
+            return bisect(A, start_index, pivot - 1, element)
+    else:
+        return None
+
+
+def bisect_iterative(A, element):
+    """ Iterative version of bisect """
+
+    start_index = 0
+    end_index = len(A) - 1
+    while start_index <= end_index:
+        pivot = int((start_index + end_index) / 2)
+        if A[pivot] == element:
+            return pivot
+        elif A[pivot] < element:
+            start_index = pivot + 1
+        else:
+            end_index = pivot - 1
+    return None
+
+
 def test1():
     """ Test for quicksort and randomized quicksort """
     a = [2, 8, 7, 1, 6, 3, 5, 6, 4]
@@ -235,4 +267,15 @@ def test5():
     print(a)
 
 
-test5()
+# test5()
+
+def test6():
+    """ Test for bisect """
+    a = [1, 3, 6, 332, 231, 22, 34, 7, 8, 23, 45, 64, 21]
+    merge_sort(a, 0, len(a) - 1)
+    print(a)
+    print(bisect(a, 0, len(a) - 1, 332))
+    print(bisect_iterative(a, 332))
+
+
+test6()
